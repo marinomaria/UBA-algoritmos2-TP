@@ -35,7 +35,7 @@ if (WITH_GUI)
     target_link_libraries(simCityGUI ${SDL2_LIBRARIES})
 endif (WITH_GUI)
 
-add_executable(correrTests ${SOURCE_FILES} tests/servidor-tests.cpp)
+add_executable(correrTests ${SOURCE_FILES} tests/servidor-tests.cpp src/mapa.h src/mapa.cpp tests/mapa-tests.cpp src/Servidor.h)
 
 # Necesitamos asociar los archivos del framework de testing
 target_link_libraries(correrTests gtest gtest_main)
