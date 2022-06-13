@@ -7,8 +7,8 @@
 class Servidor {
 public:
     Servidor();
-    void registrar(Jugador j);
-    void avanzarTurno(Jugador j, set<Nat> casas, set<Nat> comercios);
+    void registrar(Jugador j, set<Nat> verticales, set<Nat> horizontales);
+    void avanzarTurno(Jugador j, set<Casilla> casas, set<Casilla> comercios);
     void unir(Jugador j1, Jugador j2);
 private:
     string_map<SimCity> _trie;

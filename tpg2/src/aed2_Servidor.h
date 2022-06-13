@@ -8,7 +8,7 @@ class aed2_Servidor {
 public:
     aed2_Servidor();
 
-    void nuevaPartida(Jugador j, set<int> horizontales, set<int> verticales);
+    void nuevaPartida(Jugador j, set<Nat> horizontales, set<Nat> verticales);
 
     void agregarCasa(Jugador j, Casilla c);
 
@@ -35,7 +35,7 @@ public:
     Nat antiguedad(Jugador j) const;
 
 private:
-    // Completar
+    Servidor _server;
 };
 
 #endif // AED2_SERVIDOR_H
