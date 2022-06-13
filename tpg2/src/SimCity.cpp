@@ -11,3 +11,7 @@ void SimCity::avanzarTurno(set<Casilla> casas, set<Casilla> comercios) {
         _comercios.insert({c, _turnoActual});
     }
 }
+
+Mapa SimCity::mapa() {
+    return _mapa;
+}

@@ -18,9 +18,9 @@ public:
 
     void unir(Jugador j1, Jugador j2);
 
-    set<int> riosHorizontales(Jugador j) const;
+    set<Nat> riosHorizontales(Jugador j) const;
 
-    set<int> riosVerticales(Jugador j) const;
+    set<Nat> riosVerticales(Jugador j) const;
 
     set<Casilla> casas(Jugador j) const;
 

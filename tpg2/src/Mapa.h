@@ -13,6 +13,10 @@ public:
 
     void unirMapa(Mapa m2);
 
+    set<Nat> verticales();
+
+    set<Nat> horizontales();
+
 private:
     set<Nat> _verticales;
     set<Nat> _horizontales;

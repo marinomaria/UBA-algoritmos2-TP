@@ -23,12 +23,14 @@ public:
 
     void unir(SimCity s2);
 
+
 private:
     vector<SimCity*> _uniones;
     Nat _turnoActual;
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
     Mapa _mapa;
+
 };
 
 #endif //TP_SIMCITY_SIMCITY_H

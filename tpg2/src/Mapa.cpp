@@ -16,3 +16,11 @@ void Mapa::unirMapa(Mapa m2) {
         this->_horizontales.insert(r);
     }
 }
+
+set<Nat> Mapa::verticales() {
+    return _verticales;
+}
+
+set<Nat> Mapa::horizontales() {
+    return _horizontales;
+}
