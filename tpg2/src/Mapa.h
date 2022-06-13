@@ -2,17 +2,16 @@
 #define TP_SIMCITY_MAPA_H
 
 #include "Tipos.h"
-#include <set>
 
 using namespace std;
 
-class mapa {
+class Mapa {
 public:
-    mapa(set<Nat> verticales, set<Nat> horizontales);
+    Mapa(set<Nat> verticales, set<Nat> horizontales);
 
     bool hayRio(Casilla pos);
 
-    void unirMapa(mapa m2);
+    void unirMapa(Mapa m2);
 
 private:
     set<Nat> _verticales;
