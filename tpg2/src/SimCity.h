@@ -23,6 +23,7 @@ public:
 
     void unir(SimCity s2);
 
+    vector<SimCity*> uniones();
 
 private:
     vector<SimCity*> _uniones;
