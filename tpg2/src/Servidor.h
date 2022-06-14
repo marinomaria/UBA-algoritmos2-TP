@@ -15,8 +15,4 @@ private:
     string_map<SimCity> _trie;
 };
 
-SimCity Servidor::at(Jugador j1) const {
-    return _trie.at(j1);
-}
-
 #endif //TP_SIMCITY_SERVIDOR_H

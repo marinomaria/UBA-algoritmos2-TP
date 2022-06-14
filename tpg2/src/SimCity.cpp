@@ -12,7 +12,3 @@ void SimCity::avanzarTurno(set<Casilla> casas, set<Casilla> comercios) {
     }
 }
 
-vector<SimCity *> SimCity::uniones() {
-    return _uniones;
-}
-
