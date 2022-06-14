@@ -12,3 +12,7 @@ void SimCity::avanzarTurno(set<Casilla> casas, set<Casilla> comercios) {
     }
 }
 
+Nat SimCity::popularidad() {
+    return _uniones.size();
+}
+

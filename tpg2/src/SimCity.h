@@ -23,6 +23,10 @@ public:
 
     void unir(SimCity s2);
 
+    // Esta función no está en la especificación pero
+    // es necesaria para la interfaz con aed2_servidor
+    Nat popularidad();
+
 private:
     vector<SimCity*> _uniones;
     Nat _turnoActual;
