@@ -1,6 +1,6 @@
 #include "Mapa.h"
 
-Mapa::Mapa(set<Nat> verticales, set<Nat> horizontales) : _verticales(verticales), _horizontales(horizontales) {}
+Mapa::Mapa(set<int> verticales, set<int> horizontales) : _verticales(verticales), _horizontales(horizontales) {}
 
 
 bool Mapa::hayRio(Casilla pos) {
@@ -15,4 +15,12 @@ void Mapa::unirMapa(Mapa m2) {
     for (Nat r : m2._horizontales) {
         this->_horizontales.insert(r);
     }
+}
+
+set<int> Mapa::verticales() {
+    return _verticales;
+}
+
+set<int> Mapa::horizontales() {
+    return _horizontales;
 }

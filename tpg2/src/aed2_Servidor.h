@@ -35,7 +35,7 @@ public:
     Nat antiguedad(Jugador j) const;
 
 private:
-    // Completar
+    Servidor _server;
 };
 
 #endif // AED2_SERVIDOR_H
