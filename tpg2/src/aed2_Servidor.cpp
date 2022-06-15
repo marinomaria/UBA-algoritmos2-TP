@@ -62,18 +62,15 @@ bool aed2_Servidor::huboConstruccion(Jugador j) const {
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {
-    SimCity s = _server.at(j);
-    s.agregarCasa(c);
+    _server.at(j).agregarCasa(c);
 }
 
 void aed2_Servidor::agregarComercio(Jugador j, Casilla c) {
-    SimCity s = _server.at(j);
-    s.agregarComercio(c);
+    _server.at(j).agregarComercio(c);
 }
 
 void aed2_Servidor::avanzarTurno(Jugador j) {
-    SimCity s = _server.at(j);
-    s.avanzarTurno();
+    _server.at(j).avanzarTurno();
 }
 
 Nat aed2_Servidor::antiguedad(Jugador j) const {
