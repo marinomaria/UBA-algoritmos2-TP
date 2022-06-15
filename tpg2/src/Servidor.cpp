@@ -6,6 +6,10 @@ SimCity& Servidor::at(Jugador j1) {
     return _trie.at(j1);
 }
 
+const SimCity& Servidor::at(Jugador j1) const {
+    return _trie.at(j1);
+}
+
 Servidor::Servidor() : _trie() {};
 
 void Servidor::registrar(Jugador j, set<int> verticales, set<int> horizontales) {
