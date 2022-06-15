@@ -76,3 +76,26 @@ Nat SimCity::nivelComercio(Casilla p) {
     return maxNivel;
 }
 
+void SimCity::unir(SimCity s2) {
+    if (_turnoActual < s2._turnoActual){
+        _turnoActual = s2._turnoActual;
+    }
+    _uniones.push_back(&s2);
+};
+
+
+Nat SimCity::nivelCasa(Casilla p) {
+    Nat maxNivel = _turnoActual - this->casas()[p];
+    map<Casilla, Nat> casas = this->casas();
+    for (map<Casilla, Nat>::iterator it = casas.begin(); it != casas.end(); it++) {
+        if (abs(it->first.first - p.first) + abs(it->first.second - p.second) == 3) {
+            Nat nivel = _turnoActual - it->second;
+            if (nivel > maxNivel) {
+                maxNivel = nivel;
+            }
+        }
+    }
+    return maxNivel;
+}
+
+
