@@ -17,6 +17,7 @@ public:
 
     map<Casilla, Nat> comercios();
 
+    // Hay comercio en p
     Nat nivelComercio(Casilla p);
 
     Nat nivelCasa(Casilla p);
