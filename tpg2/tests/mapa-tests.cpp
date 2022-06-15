@@ -2,8 +2,8 @@
 #include "../src/Mapa.h"
 
 TEST(Mapa, crearMapa) {
-    set<Nat> v = {1,2,3};
-    set<Nat> h = {3,8,15};
+    set<int> v = {1,2,3};
+    set<int> h = {3,8,15};
     Mapa m = Mapa(v, h);
 
     EXPECT_TRUE(m.hayRio(Casilla(1,5)));
@@ -13,15 +13,15 @@ TEST(Mapa, crearMapa) {
 }
 
 TEST(Mapa, unirMapa) {
-    set<Nat> v1 = {1,2,3};
-    set<Nat> h1 = {3,8,15};
-    set<Nat> v2 = {4,8,3};
-    set<Nat> h2 = {2,5,15};
+    set<int> v1 = {1,2,3};
+    set<int> h1 = {3,8,15};
+    set<int> v2 = {4,8,3};
+    set<int> h2 = {2,5,15};
     Mapa m1 = Mapa(v1, h1);
     Mapa m2 = Mapa(v2, h2);
 
-    set<Nat> vUnion = {1,2,3,4,8};
-    set<Nat> hUnion = {3,8,15,2,5};
+    set<int> vUnion = {1,2,3,4,8};
+    set<int> hUnion = {3,8,15,2,5};
     m1.unirMapa(m2);
 
     set<Casilla> hayRio = {Casilla(1,1), Casilla(4,5), Casilla(3,3)};
