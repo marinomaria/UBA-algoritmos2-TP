@@ -12,7 +12,7 @@ public:
     void agregarCasa(Jugador j, Casilla p);
     void agregarComercio(Jugador j, Casilla p);
     void unir(Jugador j1, Jugador j2);
-    SimCity& at(Jugador j1) const;
+    SimCity& at(Jugador j1);
 private:
     string_map<SimCity> _trie;
 };
