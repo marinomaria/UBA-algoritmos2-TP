@@ -98,4 +98,22 @@ Nat SimCity::nivelCasa(Casilla p) {
     return maxNivel;
 }
 
+void SimCity::avanzarTurno() {
+    _turnoActual++;
+}
 
+Nat SimCity::popularidad() {
+    return _uniones.size();
+}
+
+void SimCity::agregarCasa(Casilla p) {
+    _casas.insert(make_pair(p, _turnoActual));
+}
+
+void SimCity::agregarComercio(Casilla p) {
+    _comercios.insert(make_pair(p, _turnoActual));
+}
+
+Nat SimCity::antiguedad() {
+    return _turnoActual;
+}
