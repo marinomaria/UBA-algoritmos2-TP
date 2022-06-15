@@ -13,6 +13,18 @@ void Servidor::registrar(Jugador j, set<int> verticales, set<int> horizontales) 
     _trie.insert(p);
 }
 
+void Servidor::avanzarTurno(Jugador j) {
+    _trie.at(j).avanzarTurno();
+}
+
+void Servidor::agregarCasa(Jugador j, Casilla p) {
+    _trie.at(j).agregarCasa(p);
+}
+
+void Servidor::agregarComercio(Jugador j, Casilla p) {
+    _trie.at(j).agregarComercio(p);
+}
+
 void Servidor::unir(Jugador j1, Jugador j2) {
     SimCity s1 = _trie.at(j1);
     SimCity s2 = _trie.at(j2);
