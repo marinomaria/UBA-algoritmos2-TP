@@ -61,3 +61,23 @@ bool aed2_Servidor::huboConstruccion(Jugador j) const {
     return (s.casas().size() > 0 || s.comercios().size() > 0);
 }
 
+void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {
+    SimCity s = _server.at(j);
+    s.agregarCasa(c);
+}
+
+void aed2_Servidor::agregarComercio(Jugador j, Casilla c) {
+    SimCity s = _server.at(j);
+    s.agregarComercio(c);
+}
+
+void aed2_Servidor::avanzarTurno(Jugador j) {
+    SimCity s = _server.at(j);
+    s.avanzarTurno();
+}
+
+Nat aed2_Servidor::antiguedad(Jugador j) const {
+    SimCity s = _server.at(j);
+    return s.antiguedad();
+}
+

@@ -9,7 +9,7 @@ class SimCity {
 public:
     SimCity(Mapa m);
 
-    void avanzarTurno(set<Casilla> casas, set<Casilla> comercios);
+    void avanzarTurno();
 
     Mapa mapa();
 
@@ -23,9 +23,15 @@ public:
 
     void unir(SimCity s2);
 
-    // Esta función no está en la especificación pero
-    // es necesaria para la interfaz con aed2_servidor
+    // Estas funciones no están en la especificación pero
+    // son necesaria para la interfaz con aed2_servidor
     Nat popularidad();
+
+    void agregarCasa(Casilla p);
+
+    void agregarComercio(Casilla p);
+
+    Nat antiguedad();
 
 private:
     vector<SimCity*> _uniones;
