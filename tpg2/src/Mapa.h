@@ -7,7 +7,7 @@ using namespace std;
 
 class Mapa {
 public:
-    Mapa(set<Nat> verticales, set<Nat> horizontales);
+    Mapa(set<int> verticales, set<int> horizontales);
 
     bool hayRio(Casilla pos);
 
@@ -15,13 +15,13 @@ public:
 
     // Estas funciones, si bien no están en la especificación,
     // son necesarias para la interfaz con la clase aed2_servidor
-    set<Nat> verticales();
+    set<int> verticales();
 
-    set<Nat> horizontales();
+    set<int> horizontales();
 
 private:
-    set<Nat> _verticales;
-    set<Nat> _horizontales;
+    set<int> _verticales;
+    set<int> _horizontales;
 };
 
 #endif //TP_SIMCITY_MAPA_H

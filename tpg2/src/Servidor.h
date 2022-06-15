@@ -7,7 +7,7 @@
 class Servidor {
 public:
     Servidor();
-    void registrar(Jugador j, set<Nat> verticales, set<Nat> horizontales);
+    void registrar(Jugador j, set<int> verticales, set<int> horizontales);
     void avanzarTurno(Jugador j, set<Casilla> casas, set<Casilla> comercios);
     void unir(Jugador j1, Jugador j2);
     SimCity at(Jugador j1) const;

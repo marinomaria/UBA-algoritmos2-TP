@@ -8,7 +8,7 @@ class aed2_Servidor {
 public:
     aed2_Servidor();
 
-    void nuevaPartida(Jugador j, set<Nat> horizontales, set<Nat> verticales);
+    void nuevaPartida(Jugador j, set<int> horizontales, set<int> verticales);
 
     void agregarCasa(Jugador j, Casilla c);
 
@@ -18,9 +18,9 @@ public:
 
     void unir(Jugador j1, Jugador j2);
 
-    set<Nat> riosHorizontales(Jugador j) const;
+    set<int> riosHorizontales(Jugador j) const;
 
-    set<Nat> riosVerticales(Jugador j) const;
+    set<int> riosVerticales(Jugador j) const;
 
     set<Casilla> casas(Jugador j) const;
 

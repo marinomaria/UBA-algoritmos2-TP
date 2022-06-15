@@ -8,7 +8,7 @@ SimCity Servidor::at(Jugador j1) const {
 
 Servidor::Servidor() : _trie() {};
 
-void Servidor::registrar(Jugador j, set<Nat> verticales, set<Nat> horizontales) {
+void Servidor::registrar(Jugador j, set<int> verticales, set<int> horizontales) {
     pair<string, SimCity> p = make_pair(j, SimCity(Mapa(verticales, horizontales)));
     _trie.insert(p);
 }
