@@ -20,7 +20,7 @@ Mapa SimCity::mapa() {
     return m;
 }
 
-map<Casilla, Nat> SimCity::casas() {
+map<Casilla, Nat> SimCity::casas() const{
     map<Casilla, Nat> res = _casas;
     for (const SimCity* s : _uniones) {
         for (const pair<Casilla, Nat> tuplaCasa : s->_casas) {
@@ -42,7 +42,7 @@ map<Casilla, Nat> SimCity::casas() {
     return res;
 }
 
-map<Casilla, Nat> SimCity::comercios() {
+map<Casilla, Nat> SimCity::comercios() const{
     map<Casilla, Nat> res = _comercios;
     for (const SimCity* s: _uniones) {
         for (const pair<Casilla, Nat> tuplaComercio: s->_comercios) {
@@ -107,13 +107,13 @@ Nat SimCity::popularidad() {
 }
 
 void SimCity::agregarCasa(Casilla p) {
-    _casas.insert(make_pair(p, _turnoActual));
+    _casas.insert(_casas.end(), make_pair(p, _turnoActual));
 }
 
 void SimCity::agregarComercio(Casilla p) {
-    _comercios.insert(make_pair(p, _turnoActual));
+    _comercios.insert(_casas.end(), make_pair(p, _turnoActual));
 }
 
-Nat SimCity::antiguedad() {
+Nat SimCity::antiguedad() const {
     return _turnoActual;
 }

@@ -57,8 +57,8 @@ Nat aed2_Servidor::nivel(Jugador j, Casilla c) const {
 // TODO: Checkear si efectivamente esta función tiene que devolver
 // true sii hay al menos una construcción en el SimCity
 bool aed2_Servidor::huboConstruccion(Jugador j) const {
-    SimCity s = _server.at(j);
-    return (s.casas().size() > 0 || s.comercios().size() > 0);
+    const SimCity& s = _server.at(j);
+    return s.casas().end()->second - s.antiguedad() == 0;
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {

@@ -13,9 +13,9 @@ public:
 
     Mapa mapa();
 
-    map<Casilla, Nat> casas();
+    map<Casilla, Nat> casas() const;
 
-    map<Casilla, Nat> comercios();
+    map<Casilla, Nat> comercios() const;
 
     // Hay comercio en p
     Nat nivelComercio(Casilla p);
@@ -32,7 +32,7 @@ public:
 
     void agregarComercio(Casilla p);
 
-    Nat antiguedad();
+    Nat antiguedad() const;
 
 private:
     vector<SimCity*> _uniones;
