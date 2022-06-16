@@ -14,7 +14,7 @@ SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), 
 
 Mapa SimCity::mapa() const {
     Mapa m = _mapa;
-    for (const pair<SimCity*, Nat>& p : _uniones) {
+    for (const pair<SimCity*, int>& p : _uniones) {
         m.unirMapa(p.first->mapa());
     }
     return m;
@@ -25,7 +25,7 @@ map<Casilla, Nat> SimCity::casas() const{
     for (auto it = res.begin(); it != res.end(); it++) {
         it->second = _turnoActual - it->second;
     }
-    for (const pair<SimCity*, Nat>& p : _uniones) {
+    for (const pair<SimCity*, int>& p : _uniones) {
         for (const pair<Casilla, Nat> tuplaCasa : p.first->_casas) {
             Nat nivel = _turnoActual - p.second - tuplaCasa.second;
             if (res.count(tuplaCasa.first) == 0 || nivel < res[tuplaCasa.first]) {
@@ -38,18 +38,14 @@ map<Casilla, Nat> SimCity::casas() const{
 
 map<Casilla, Nat> SimCity::comercios() const{
     map<Casilla, Nat> res = _comercios;
-    for (const pair<SimCity*, Nat>& p : _uniones) {
-        for (const pair<Casilla, Nat> tuplaComercio: p.first->_comercios) {
-            // Si la posición ya está ocupada por un comercio de una unión anterior
-            // O del SimCity original
-            if (res.count(tuplaComercio.first) == 1) {
-                // Si el comercio que ya estaba ahí se agregó en un turno posterior
-                // (es decir, tiene nivel inferior)
-                if (res[tuplaComercio.first] > tuplaComercio.second) {
-                    res[tuplaComercio.first] = tuplaComercio.second;
-                }
-            } else {
-                res.insert(tuplaComercio);
+    for (auto it = res.begin(); it != res.end(); it++) {
+        it->second = _turnoActual - it->second;
+    }
+    for (const pair<SimCity*, int>& p : _uniones) {
+        for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
+            Nat nivel = _turnoActual - p.second - tuplaComercio.second;
+            if (res.count(tuplaComercio.first) == 0 || nivel < res[tuplaComercio.first]) {
+                res[tuplaComercio.first] = nivel;
             }
         }
     }
@@ -57,7 +53,7 @@ map<Casilla, Nat> SimCity::comercios() const{
 }
 
 Nat SimCity::nivelComercio(Casilla p) const {
-    Nat maxNivel = _turnoActual - this->comercios()[p];
+    Nat maxNivel = this->comercios()[p];
     map<Casilla, Nat> casas = this->casas();
     for (map<Casilla, Nat>::iterator it = casas.begin(); it != casas.end(); it++) {
         if (abs(it->first.first - p.first) + abs(it->first.second - p.second) <= 3) {
@@ -95,5 +91,11 @@ void SimCity::agregarComercio(Casilla p) {
 }
 
 Nat SimCity::antiguedad() const {
-    return _turnoActual;
+    int tMax = 0;
+    for (const pair<SimCity*, int>& p: _uniones) {
+        if (p.second < tMax) {
+            tMax = p.second;
+        }
+    }
+    return _turnoActual - tMax;
 }

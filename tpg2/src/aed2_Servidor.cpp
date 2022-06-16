@@ -62,7 +62,7 @@ bool aed2_Servidor::huboConstruccion(Jugador j) const {
     }
     map<Casilla, Nat> comercios = sim.comercios();
     for (auto it = comercios.begin(); it != comercios.end(); it++) {
-        if (it->second == sim.antiguedad()) {
+        if (it->second == 0) {
             return true;
         }
     }
@@ -82,7 +82,6 @@ void aed2_Servidor::avanzarTurno(Jugador j) {
 }
 
 Nat aed2_Servidor::antiguedad(Jugador j) const {
-    SimCity s = _server.at(j);
-    return s.antiguedad();
+    return _server.at(j).antiguedad();
 }
 

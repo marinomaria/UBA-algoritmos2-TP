@@ -36,7 +36,7 @@ public:
 
 private:
     Nat _turnoActual;
-    map<SimCity*, Nat> _uniones;
+    map<SimCity*, int> _uniones;
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
     Mapa _mapa;
