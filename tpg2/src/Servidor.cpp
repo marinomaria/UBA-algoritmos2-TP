@@ -30,7 +30,6 @@ void Servidor::agregarComercio(Jugador j, Casilla p) {
 }
 
 void Servidor::unir(Jugador j1, Jugador j2) {
-    SimCity s2 = _trie.at(j2);
-    _trie.at(j1).unir(s2);
+    _trie.at(j1).unir(_trie.at(j2));
 }
 

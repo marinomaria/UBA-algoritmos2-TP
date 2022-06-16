@@ -1,6 +1,6 @@
 #include "SimCity.h"
 
-SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), _mapa(m) {};
+SimCity::SimCity(Mapa m) : _uniones(0), _turnoActual(0), _casas(), _comercios(), _mapa(m) {};
 
 //void SimCity::avanzarTurno(set<Casilla> casas, set<Casilla> comercios) {
 //    for (Casilla c : casas) {
@@ -12,10 +12,10 @@ SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), 
 //    }
 //}
 
-Mapa SimCity::mapa() {
+Mapa SimCity::mapa() const {
     Mapa m = _mapa;
     for (const SimCity* s : _uniones) {
-        m.unirMapa(s->_mapa);
+        m.unirMapa(s->mapa());
     }
     return m;
 }
@@ -76,7 +76,7 @@ Nat SimCity::nivelComercio(Casilla p) const {
     return maxNivel;
 }
 
-void SimCity::unir(SimCity s2) {
+void SimCity::unir(SimCity& s2) {
     if (_turnoActual < s2._turnoActual){
         _turnoActual = s2._turnoActual;
     }

@@ -11,7 +11,7 @@ public:
 
     void avanzarTurno();
 
-    Mapa mapa();
+    Mapa mapa() const;
 
     map<Casilla, Nat> casas() const;
 
@@ -22,7 +22,7 @@ public:
 
     Nat nivelCasa(Casilla p) const;
 
-    void unir(SimCity s2);
+    void unir(SimCity& s2);
 
     // Estas funciones no están en la especificación pero
     // son necesaria para la interfaz con aed2_servidor
