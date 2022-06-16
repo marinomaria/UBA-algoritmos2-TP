@@ -62,7 +62,7 @@ map<Casilla, Nat> SimCity::comercios() const{
     return res;
 }
 
-Nat SimCity::nivelComercio(Casilla p) {
+Nat SimCity::nivelComercio(Casilla p) const {
     Nat maxNivel = _turnoActual - this->comercios()[p];
     map<Casilla, Nat> casas = this->casas();
     for (map<Casilla, Nat>::iterator it = casas.begin(); it != casas.end(); it++) {
@@ -84,7 +84,7 @@ void SimCity::unir(SimCity s2) {
 };
 
 
-Nat SimCity::nivelCasa(Casilla p) {
+Nat SimCity::nivelCasa(Casilla p) const {
     Nat maxNivel = _turnoActual - this->casas()[p];
     map<Casilla, Nat> casas = this->casas();
     for (map<Casilla, Nat>::iterator it = casas.begin(); it != casas.end(); it++) {
@@ -102,7 +102,7 @@ void SimCity::avanzarTurno() {
     _turnoActual++;
 }
 
-Nat SimCity::popularidad() {
+Nat SimCity::popularidad() const {
     return _uniones.size();
 }
 

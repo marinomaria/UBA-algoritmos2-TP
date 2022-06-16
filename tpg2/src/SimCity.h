@@ -18,15 +18,15 @@ public:
     map<Casilla, Nat> comercios() const;
 
     // Hay comercio en p
-    Nat nivelComercio(Casilla p);
+    Nat nivelComercio(Casilla p) const;
 
-    Nat nivelCasa(Casilla p);
+    Nat nivelCasa(Casilla p) const;
 
     void unir(SimCity s2);
 
     // Estas funciones no están en la especificación pero
     // son necesaria para la interfaz con aed2_servidor
-    Nat popularidad();
+    Nat popularidad() const;
 
     void agregarCasa(Casilla p);
 
