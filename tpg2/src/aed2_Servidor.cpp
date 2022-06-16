@@ -56,7 +56,7 @@ bool aed2_Servidor::huboConstruccion(Jugador j) const {
     const SimCity& sim = _server.at(j);
     map<Casilla, Nat> casas = sim.casas();
     for (auto it = casas.begin(); it != casas.end(); it++) {
-        if (it->second == sim.antiguedad()) {
+        if (it->second == 0) {
             return true;
         }
     }

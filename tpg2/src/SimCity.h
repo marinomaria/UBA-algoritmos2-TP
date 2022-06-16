@@ -35,12 +35,11 @@ public:
     Nat antiguedad() const;
 
 private:
-    vector<SimCity*> _uniones;
     Nat _turnoActual;
+    map<SimCity*, Nat> _uniones;
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
     Mapa _mapa;
-
 };
 
 #endif //TP_SIMCITY_SIMCITY_H
