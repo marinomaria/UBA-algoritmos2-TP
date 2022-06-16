@@ -39,7 +39,7 @@ set<Casilla> aed2_Servidor::comercios(Jugador j) const {
 }
 
 Nat aed2_Servidor::popularidad(Jugador j) const {
-    SimCity s = _server.at(j);
+    const SimCity& s = _server.at(j);
     return s.popularidad();
 }
 

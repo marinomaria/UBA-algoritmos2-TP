@@ -79,7 +79,11 @@ void SimCity::avanzarTurno() {
 }
 
 Nat SimCity::popularidad() const {
-    return _uniones.size();
+    Nat res = _uniones.size();
+    for (const pair<SimCity*, int>& p: _uniones) {
+        res += p.first->popularidad();
+    }
+    return res;
 }
 
 void SimCity::agregarCasa(Casilla p) {
