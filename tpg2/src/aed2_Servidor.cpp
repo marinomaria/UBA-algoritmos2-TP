@@ -53,20 +53,7 @@ Nat aed2_Servidor::nivel(Jugador j, Casilla c) const {
 }
 
 bool aed2_Servidor::huboConstruccion(Jugador j) const {
-    const SimCity& sim = _server.at(j);
-    map<Casilla, Nat> casas = sim.casas();
-    for (auto it = casas.begin(); it != casas.end(); it++) {
-        if (it->second == 0) {
-            return true;
-        }
-    }
-    map<Casilla, Nat> comercios = sim.comercios();
-    for (auto it = comercios.begin(); it != comercios.end(); it++) {
-        if (it->second == 0) {
-            return true;
-        }
-    }
-    return false;
+    _server.at(j).huboConstruccion();
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {

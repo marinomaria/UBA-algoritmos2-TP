@@ -28,7 +28,7 @@ map<Casilla, Nat> SimCity::casas() const{
     for (const pair<SimCity*, int>& p : _uniones) {
         for (const pair<Casilla, Nat> tuplaCasa : p.first->_casas) {
             Nat nivel = _turnoActual - p.second - tuplaCasa.second;
-            if (res.count(tuplaCasa.first) == 0 || nivel < res[tuplaCasa.first]) {
+            if (res.count(tuplaCasa.first) == 0 || nivel > res[tuplaCasa.first]) {
                 res[tuplaCasa.first] = nivel;
             }
         }
@@ -102,4 +102,18 @@ Nat SimCity::antiguedad() const {
         }
     }
     return _turnoActual - tMax;
+}
+
+bool SimCity::huboConstruccion() const {
+    for (const pair<Casilla, Nat>& p: _casas) {
+        if (p.second == _turnoActual) {
+            return true;
+        }
+    }
+    for (const pair<SimCity*, int>& p: _uniones) {
+        if (p.first->huboConstruccion()) {
+            return true;
+        }
+    }
+    return false;
 }

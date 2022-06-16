@@ -33,7 +33,9 @@ public:
     void agregarComercio(Casilla p);
 
     Nat antiguedad() const;
-
+    
+    bool huboConstruccion() const;
+    
 private:
     Nat _turnoActual;
     map<SimCity*, int> _uniones;
