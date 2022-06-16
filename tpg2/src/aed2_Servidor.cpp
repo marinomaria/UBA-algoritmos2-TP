@@ -44,18 +44,14 @@ Nat aed2_Servidor::popularidad(Jugador j) const {
 }
 
 Nat aed2_Servidor::nivel(Jugador j, Casilla c) const {
-    SimCity s = _server.at(j);
-    Nat nivel = 0;
+    const SimCity& s = _server.at(j);
     if (s.casas().count(c) == 1) {
-        nivel = s.nivelCasa(c);
-    } else if (s.comercios().count(c) == 1) {
-        nivel = s.nivelComercio(c);
+        return s.nivelCasa(c);
+    } else {
+        return s.nivelComercio(c);
     }
-    return nivel;
 }
 
-// TODO: Checkear si efectivamente esta función tiene que devolver
-// true sii hay al menos una construcción en el SimCity
 bool aed2_Servidor::huboConstruccion(Jugador j) const {
     const SimCity& sim = _server.at(j);
     map<Casilla, Nat> casas = sim.casas();
