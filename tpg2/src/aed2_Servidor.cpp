@@ -53,7 +53,7 @@ Nat aed2_Servidor::nivel(Jugador j, Casilla c) const {
 }
 
 bool aed2_Servidor::huboConstruccion(Jugador j) const {
-    _server.at(j).huboConstruccion();
+    return _server.at(j).huboConstruccion();
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {

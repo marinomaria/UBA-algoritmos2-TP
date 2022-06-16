@@ -110,6 +110,11 @@ bool SimCity::huboConstruccion() const {
             return true;
         }
     }
+    for (const pair<Casilla, Nat>& p: _comercios) {
+        if (p.second == _turnoActual) {
+            return true;
+        }
+    }
     for (const pair<SimCity*, int>& p: _uniones) {
         if (p.first->huboConstruccion()) {
             return true;
