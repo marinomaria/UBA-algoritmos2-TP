@@ -38,6 +38,7 @@ public:
     
 private:
     Nat _turnoActual;
+    // asocia simcity a diferencia de turnos
     map<SimCity*, int> _uniones;
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
