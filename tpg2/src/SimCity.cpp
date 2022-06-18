@@ -37,7 +37,7 @@ map<Casilla, Nat> SimCity::comercios() const{
         for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
             Nat nivel = _turnoActual - p.second - tuplaComercio.second;
             // Si no habia comercio, o si el "nivel" (edad de la construccion) es mayor al que habia
-            if (res.count(tuplaComercio.first) == 0 || nivel < res[tuplaComercio.first]) {
+            if (res.count(tuplaComercio.first) == 0 || nivel > res[tuplaComercio.first]) {
                 // Defino o redefino el nivel
                 res[tuplaComercio.first] = nivel;
             }
