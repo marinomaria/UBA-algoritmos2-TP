@@ -39,7 +39,7 @@ set<Casilla> aed2_Servidor::comercios(Jugador j) const {
 }
 
 Nat aed2_Servidor::popularidad(Jugador j) const {
-    SimCity s = _server.at(j);
+    const SimCity& s = _server.at(j);
     return s.popularidad();
 }
 
@@ -53,20 +53,7 @@ Nat aed2_Servidor::nivel(Jugador j, Casilla c) const {
 }
 
 bool aed2_Servidor::huboConstruccion(Jugador j) const {
-    const SimCity& sim = _server.at(j);
-    map<Casilla, Nat> casas = sim.casas();
-    for (auto it = casas.begin(); it != casas.end(); it++) {
-        if (it->second == sim.antiguedad()) {
-            return true;
-        }
-    }
-    map<Casilla, Nat> comercios = sim.comercios();
-    for (auto it = comercios.begin(); it != comercios.end(); it++) {
-        if (it->second == sim.antiguedad()) {
-            return true;
-        }
-    }
-    return false;
+    return _server.at(j).huboConstruccion();
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {
@@ -82,7 +69,6 @@ void aed2_Servidor::avanzarTurno(Jugador j) {
 }
 
 Nat aed2_Servidor::antiguedad(Jugador j) const {
-    SimCity s = _server.at(j);
-    return s.antiguedad();
+    return _server.at(j).antiguedad();
 }
 

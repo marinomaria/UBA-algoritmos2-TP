@@ -1,41 +1,27 @@
 #include "SimCity.h"
 
-SimCity::SimCity(Mapa m) : _uniones(0), _turnoActual(0), _casas(), _comercios(), _mapa(m) {};
-
-//void SimCity::avanzarTurno(set<Casilla> casas, set<Casilla> comercios) {
-//    for (Casilla c : casas) {
-//        _casas.insert({c, _turnoActual});
-//    }
-//
-//    for (Casilla c : comercios) {
-//        _comercios.insert({c, _turnoActual});
-//    }
-//}
+SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), _mapa(m) {};
 
 Mapa SimCity::mapa() const {
     Mapa m = _mapa;
-    for (const SimCity* s : _uniones) {
-        m.unirMapa(s->mapa());
+    for (const pair<SimCity*, int>& p : _uniones) {
+        m.unirMapa(p.first->mapa());
     }
     return m;
 }
 
 map<Casilla, Nat> SimCity::casas() const{
     map<Casilla, Nat> res = _casas;
-    for (const SimCity* s : _uniones) {
-        for (const pair<Casilla, Nat> tuplaCasa : s->_casas) {
-            // Si la posición ya está ocupada por una casa de una unión anterior
-            // O del SimCity original
-            if (res.count(tuplaCasa.first) == 1) {
-                // Si la casa que ya estaba ahí se agregó en un turno posterior
-                // (es decir, tiene nivel inferior)
-                if (res[tuplaCasa.first] > tuplaCasa.second) {
-                    res[tuplaCasa.first] = tuplaCasa.second;
-                }
-            // Si la posición *no* está ocupada por una casa ni por un
-            // comercio anterior
-            } else if (this->comercios().count(tuplaCasa.first) < 1) {
-                res.insert(tuplaCasa);
+    for (auto it = res.begin(); it != res.end(); it++) {
+        it->second = _turnoActual - it->second;
+    }
+    for (const pair<SimCity*, int>& p : _uniones) {
+        for (const pair<Casilla, Nat> tuplaCasa : p.first->_casas) {
+            Nat nivel = _turnoActual - p.second - tuplaCasa.second;
+            // Si no habia casa, o si el "nivel" (edad de la construccion) es mayor a la que habia
+            if (res.count(tuplaCasa.first) == 0 || nivel > res[tuplaCasa.first]) {
+                // Defino o redefino el nivel
+                res[tuplaCasa.first] = nivel;
             }
         }
     }
@@ -44,32 +30,30 @@ map<Casilla, Nat> SimCity::casas() const{
 
 map<Casilla, Nat> SimCity::comercios() const{
     map<Casilla, Nat> res = _comercios;
-    for (const SimCity* s: _uniones) {
-        for (const pair<Casilla, Nat> tuplaComercio: s->_comercios) {
-            // Si la posición ya está ocupada por un comercio de una unión anterior
-            // O del SimCity original
-            if (res.count(tuplaComercio.first) == 1) {
-                // Si el comercio que ya estaba ahí se agregó en un turno posterior
-                // (es decir, tiene nivel inferior)
-                if (res[tuplaComercio.first] > tuplaComercio.second) {
-                    res[tuplaComercio.first] = tuplaComercio.second;
-                }
-            } else {
-                res.insert(tuplaComercio);
+    for (auto it = res.begin(); it != res.end(); it++) {
+        it->second = _turnoActual - it->second;
+    }
+    for (const pair<SimCity*, int>& p : _uniones) {
+        for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
+            Nat nivel = _turnoActual - p.second - tuplaComercio.second;
+            // Si no habia comercio, o si el "nivel" (edad de la construccion) es mayor al que habia
+            if (res.count(tuplaComercio.first) == 0 || nivel < res[tuplaComercio.first]) {
+                // Defino o redefino el nivel
+                res[tuplaComercio.first] = nivel;
             }
         }
     }
     return res;
 }
 
+// El nivel usado por comercios() (edad) difiere del de esta funcion
 Nat SimCity::nivelComercio(Casilla p) const {
-    Nat maxNivel = _turnoActual - this->comercios()[p];
+    Nat maxNivel = this->comercios()[p];
     map<Casilla, Nat> casas = this->casas();
     for (map<Casilla, Nat>::iterator it = casas.begin(); it != casas.end(); it++) {
         if (abs(it->first.first - p.first) + abs(it->first.second - p.second) <= 3) {
-            Nat nivel = _turnoActual - it->second;
-            if (nivel > maxNivel) {
-                maxNivel = nivel;
+            if (it->second > maxNivel) {
+                maxNivel = it->second;
             }
         }
     }
@@ -77,15 +61,12 @@ Nat SimCity::nivelComercio(Casilla p) const {
 }
 
 void SimCity::unir(SimCity& s2) {
-    if (_turnoActual < s2._turnoActual){
-        _turnoActual = s2._turnoActual;
-    }
-    _uniones.push_back(&s2);
+    _uniones.insert(make_pair(&s2, _turnoActual - s2._turnoActual)); // Asocia diferencia de turnos inicial
 };
 
-
+// El nivel usado por casas() es identico al de una casa (su edad)
 Nat SimCity::nivelCasa(Casilla p) const {
-    return _turnoActual - this->casas()[p];
+    return this->casas()[p];
 }
 
 void SimCity::avanzarTurno() {
@@ -93,7 +74,11 @@ void SimCity::avanzarTurno() {
 }
 
 Nat SimCity::popularidad() const {
-    return _uniones.size();
+    Nat res = _uniones.size();
+    for (const pair<SimCity*, int>& p: _uniones) {
+        res += p.first->popularidad();
+    }
+    return res;
 }
 
 void SimCity::agregarCasa(Casilla p) {
@@ -105,5 +90,34 @@ void SimCity::agregarComercio(Casilla p) {
 }
 
 Nat SimCity::antiguedad() const {
-    return _turnoActual;
+    int tMax = 0;
+    for (const pair<SimCity*, int>& p: _uniones) {
+        if (p.second < tMax) {
+            tMax = p.second;
+        }
+    } // tMax = _turnoActual - max(_turnoActuali) i en _uniones
+    return _turnoActual - tMax;
+    // return _turnoActual - turnoActual + max(_turnoActuali) i en uniones
+    // = return max(_turnoActuali) i en uniones (justamente lo que quiero!)
+}
+
+bool SimCity::huboConstruccion() const {
+    // Si el SimCity "padre" tiene alguna construccion de nivel (edad) 0
+    for (const pair<Casilla, Nat>& p: _casas) {
+        if (p.second == _turnoActual) {
+            return true;
+        }
+    }
+    for (const pair<Casilla, Nat>& p: _comercios) {
+        if (p.second == _turnoActual) {
+            return true;
+        }
+    }
+    // Si alguno de los SimCity "hijos" tuvieron lo mismo (llamado recursivo)
+    for (const pair<SimCity*, int>& p: _uniones) {
+        if (p.first->huboConstruccion()) {
+            return true;
+        }
+    }
+    return false;
 }

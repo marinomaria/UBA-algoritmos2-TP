@@ -33,14 +33,16 @@ public:
     void agregarComercio(Casilla p);
 
     Nat antiguedad() const;
-
+    
+    bool huboConstruccion() const;
+    
 private:
-    vector<SimCity*> _uniones;
     Nat _turnoActual;
+    // asocia simcity a diferencia de turnos
+    map<SimCity*, int> _uniones;
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
     Mapa _mapa;
-
 };
 
 #endif //TP_SIMCITY_SIMCITY_H
