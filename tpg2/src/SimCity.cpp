@@ -16,8 +16,8 @@ map<Casilla, Nat> SimCity::casas() const{
         it->second = _turnoActual - it->second;
     }
     for (const pair<SimCity*, int>& p : _uniones) {
-        for (const pair<Casilla, Nat> tuplaCasa : p.first->_casas) {
-            Nat nivel = _turnoActual - p.second - tuplaCasa.second;
+        for (const pair<Casilla, Nat> tuplaCasa : p.first->casas()) {
+            Nat nivel = tuplaCasa.second;
             // Si no habia casa, o si el "nivel" (edad de la construccion) es mayor a la que habia
             if (res.count(tuplaCasa.first) == 0 || nivel > res[tuplaCasa.first]) {
                 // Defino o redefino el nivel
@@ -37,8 +37,8 @@ map<Casilla, Nat> SimCity::comercios() const{
     }
 
     for (const pair<SimCity*, int>& p : _uniones) {
-        for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
-            Nat nivel = _turnoActual - p.second - tuplaComercio.second;
+        for (const pair<Casilla, Nat> tuplaComercio : p.first->comercios()) {
+            Nat nivel = tuplaComercio.second;
             // Si no habia comercio, o si el "nivel" (edad de la construccion) es mayor al que habia
             if ((res.count(tuplaComercio.first) == 0 || nivel > res[tuplaComercio.first]) && casas().count(tuplaComercio.first) == 0) {
                 // Defino o redefino el nivel
