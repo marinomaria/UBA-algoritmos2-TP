@@ -29,7 +29,13 @@ map<Casilla, Nat> SimCity::casas() const{
 }
 
 map<Casilla, Nat> SimCity::comercios() const{
-    map<Casilla, Nat> res = _comercios;
+    map<Casilla, Nat> res;
+    for (const pair<Casilla, Nat> c : _comercios) {
+        if (this->casas().count(c.first) == 0) {
+            res.insert(c);
+        }
+    }
+
     for (auto it = res.begin(); it != res.end(); it++) {
         it->second = _turnoActual - it->second;
     }
@@ -37,26 +43,13 @@ map<Casilla, Nat> SimCity::comercios() const{
         for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
             Nat nivel = _turnoActual - p.second - tuplaComercio.second;
             // Si no habia comercio, o si el "nivel" (edad de la construccion) es mayor al que habia
-            if (res.count(tuplaComercio.first) == 0 || nivel > res[tuplaComercio.first]) {
+            if ((res.count(tuplaComercio.first) == 0 || nivel > res[tuplaComercio.first]) && casas().count(tuplaComercio.first) == 0) {
                 // Defino o redefino el nivel
                 res[tuplaComercio.first] = nivel;
             }
         }
     }
 
-    // uniones de casas
-    map<Casilla, Nat> res_casas = casas();
-
-    // si tenemos casa cuyas coordenadas coinciden con la de algun comercio, sin importar el nivel de la casa,
-    // borramos dicho comercio de res
-     for(const pair<Casilla, Nat> x : res_casas)
-        { for (auto it = res.begin(); it != res.end(); it++) {
-                if (it->first==x.first){
-//                    cout << x.first.first << x.first.second << endl;
-                    res.erase(it++);
-                }
-            }
-        }
     return res;
 }
 
