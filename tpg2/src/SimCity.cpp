@@ -52,7 +52,7 @@ map<Casilla, Nat> SimCity::comercios() const{
      for(const pair<Casilla, Nat> x : res_casas)
         { for (auto it = res.begin(); it != res.end(); it++) {
                 if (it->first==x.first){
-                    cout << x.first.first << x.first.second << endl;
+//                    cout << x.first.first << x.first.second << endl;
                     res.erase(it++);
                 }
             }
@@ -129,7 +129,9 @@ bool SimCity::huboConstruccion() const {
     }
     // Si alguno de los SimCity "hijos" tuvieron lo mismo (llamado recursivo)
     for (const pair<SimCity*, int>& p: _uniones) {
-        if (p.first->huboConstruccion()) {
+        // adaptacion para caso donde se avance el nivel de padre aunque no se haya avanzado
+        // turno en simcity hijo
+        if (p.first->huboConstruccion() && (_turnoActual != p.first->_turnoActual)) {
             return true;
         }
     }
