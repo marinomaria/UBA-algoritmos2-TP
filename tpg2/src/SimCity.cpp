@@ -43,6 +43,20 @@ map<Casilla, Nat> SimCity::comercios() const{
             }
         }
     }
+
+    // uniones de casas
+    map<Casilla, Nat> res_casas = casas();
+
+    // si tenemos casa cuyas coordenadas coinciden con la de algun comercio, sin importar el nivel de la casa,
+    // borramos dicho comercio de res
+     for(const pair<Casilla, Nat> x : res_casas)
+        { for (auto it = res.begin(); it != res.end(); it++) {
+                if (it->first==x.first){
+                    cout << x.first.first << x.first.second << endl;
+                    res.erase(it++);
+                }
+            }
+        }
     return res;
 }
 
