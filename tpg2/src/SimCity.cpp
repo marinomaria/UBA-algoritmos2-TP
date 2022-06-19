@@ -16,8 +16,8 @@ map<Casilla, Nat> SimCity::casas() const{
         it->second = _turnoActual - it->second;
     }
     for (const pair<SimCity*, int>& p : _uniones) {
-        for (const pair<Casilla, Nat> tuplaCasa : p.first->_casas) {
-            Nat nivel = _turnoActual - p.second - tuplaCasa.second;
+        for (const pair<Casilla, Nat> tuplaCasa : p.first->casas()) {
+            Nat nivel = tuplaCasa.second;
             // Si no habia casa, o si el "nivel" (edad de la construccion) es mayor a la que habia
             if (res.count(tuplaCasa.first) == 0 || nivel > res[tuplaCasa.first]) {
                 // Defino o redefino el nivel
@@ -37,8 +37,8 @@ map<Casilla, Nat> SimCity::comercios() const{
     }
 
     for (const pair<SimCity*, int>& p : _uniones) {
-        for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
-            Nat nivel = _turnoActual - p.second - tuplaComercio.second;
+        for (const pair<Casilla, Nat> tuplaComercio : p.first->comercios()) {
+            Nat nivel = tuplaComercio.second;
             // Si no habia comercio, o si el "nivel" (edad de la construccion) es mayor al que habia
             if ((res.count(tuplaComercio.first) == 0 || nivel > res[tuplaComercio.first]) && casas().count(tuplaComercio.first) == 0) {
                 // Defino o redefino el nivel
@@ -65,7 +65,7 @@ Nat SimCity::nivelComercio(Casilla p) const {
 }
 
 void SimCity::unir(SimCity& s2) {
-    _uniones.insert(make_pair(&s2, _turnoActual - s2._turnoActual)); // Asocia diferencia de turnos inicial
+    _uniones.insert(make_pair(&s2, antiguedad() - s2.antiguedad())); // Asocia diferencia de turnos inicial
 };
 
 // El nivel usado por casas() es identico al de una casa (su edad)
@@ -75,6 +75,9 @@ Nat SimCity::nivelCasa(Casilla p) const {
 
 void SimCity::avanzarTurno() {
     _turnoActual++;
+    for (const pair<SimCity*, int>& p: _uniones) {
+        p.first->avanzarTurno();
+    }
 }
 
 Nat SimCity::popularidad() const {
@@ -121,6 +124,9 @@ bool SimCity::huboConstruccion() const {
     for (const pair<SimCity*, int>& p: _uniones) {
         // adaptacion para caso donde se avance el nivel de padre aunque no se haya avanzado
         // turno en simcity hijo
+        // TODO: revisar segunda condicion del if para test unir_partidas_y_avanzar_turno
+        // en el caso donde hacemos otro avanzarTurno al final, el test deberia seguir dando
+        // EXPECT_FALSE(s.huboConstruccion(jugador1));
         if (p.first->huboConstruccion() && (_turnoActual != p.first->_turnoActual)) {
             return true;
         }
