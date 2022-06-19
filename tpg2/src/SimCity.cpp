@@ -76,7 +76,7 @@ Nat SimCity::nivelCasa(Casilla p) const {
 void SimCity::avanzarTurno() {
     _turnoActual++;
     for (const pair<SimCity*, int>& p: _uniones) {
-        p.first->_turnoActual ++;
+        p.first->avanzarTurno();
     }
 }
 
