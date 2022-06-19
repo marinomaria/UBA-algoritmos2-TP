@@ -65,7 +65,7 @@ Nat SimCity::nivelComercio(Casilla p) const {
 }
 
 void SimCity::unir(SimCity& s2) {
-    _uniones.insert(make_pair(&s2, _turnoActual - s2._turnoActual)); // Asocia diferencia de turnos inicial
+    _uniones.insert(make_pair(&s2, antiguedad() - s2.antiguedad())); // Asocia diferencia de turnos inicial
 };
 
 // El nivel usado por casas() es identico al de una casa (su edad)
