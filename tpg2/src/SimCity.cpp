@@ -124,9 +124,6 @@ bool SimCity::huboConstruccion() const {
     for (const pair<SimCity*, int>& p: _uniones) {
         // adaptacion para caso donde se avance el nivel de padre aunque no se haya avanzado
         // turno en simcity hijo
-        // TODO: revisar segunda condicion del if para test unir_partidas_y_avanzar_turno
-        // en el caso donde hacemos otro avanzarTurno al final, el test deberia seguir dando
-        // EXPECT_FALSE(s.huboConstruccion(jugador1));
         if (p.first->huboConstruccion() && (_turnoActual != p.first->_turnoActual)) {
             return true;
         }
