@@ -32,13 +32,10 @@ map<Casilla, Nat> SimCity::comercios() const{
     map<Casilla, Nat> res;
     for (const pair<Casilla, Nat> c : _comercios) {
         if (this->casas().count(c.first) == 0) {
-            res.insert(c);
+            res.insert(make_pair(c.first, _turnoActual - c.second));
         }
     }
 
-    for (auto it = res.begin(); it != res.end(); it++) {
-        it->second = _turnoActual - it->second;
-    }
     for (const pair<SimCity*, int>& p : _uniones) {
         for (const pair<Casilla, Nat> tuplaComercio : p.first->_comercios) {
             Nat nivel = _turnoActual - p.second - tuplaComercio.second;
