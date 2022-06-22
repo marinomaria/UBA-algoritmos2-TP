@@ -1,6 +1,6 @@
 #include "SimCity.h"
 
-SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), _mapa(m) {};
+SimCity::SimCity(Mapa m) : _uniones(), _turnoActual(0), _casas(), _comercios(), _mapa(m), _popu(0), _anti(0) {};
 
 Mapa SimCity::mapa() const {
     Mapa m = _mapa;
@@ -65,7 +65,12 @@ Nat SimCity::nivelComercio(Casilla p) const {
 }
 
 void SimCity::unir(SimCity& s2) {
-    _uniones.insert(make_pair(&s2, antiguedad() - s2.antiguedad())); // Asocia diferencia de turnos inicial
+    // Asocia diferencia de turnos inicial
+    _uniones.insert(make_pair(&s2, antiguedad() - s2.antiguedad()));
+    _popu += s2._popu + 1;
+    if(s2.antiguedad() > antiguedad()) {
+        _anti = s2._anti;
+    }
 };
 
 // El nivel usado por casas() es identico al de una casa (su edad)
@@ -75,17 +80,14 @@ Nat SimCity::nivelCasa(Casilla p) const {
 
 void SimCity::avanzarTurno() {
     _turnoActual++;
+    _anti++;
     for (const pair<SimCity*, int>& p: _uniones) {
         p.first->avanzarTurno();
     }
 }
 
 Nat SimCity::popularidad() const {
-    Nat res = _uniones.size();
-    for (const pair<SimCity*, int>& p: _uniones) {
-        res += p.first->popularidad();
-    }
-    return res;
+    return _popu;
 }
 
 void SimCity::agregarCasa(Casilla p) {
@@ -97,15 +99,7 @@ void SimCity::agregarComercio(Casilla p) {
 }
 
 Nat SimCity::antiguedad() const {
-    int tMax = 0;
-    for (const pair<SimCity*, int>& p: _uniones) {
-        if (p.second < tMax) {
-            tMax = p.second;
-        }
-    } // tMax = _turnoActual - max(_turnoActuali) i en _uniones
-    return _turnoActual - tMax;
-    // return _turnoActual - turnoActual + max(_turnoActuali) i en uniones
-    // = return max(_turnoActuali) i en uniones (justamente lo que quiero!)
+    return _anti;
 }
 
 bool SimCity::huboConstruccion() const {

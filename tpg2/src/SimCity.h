@@ -43,6 +43,8 @@ private:
     map<Casilla, Nat> _casas;
     map<Casilla, Nat> _comercios;
     Mapa _mapa;
+    Nat _popu;
+    Nat _anti;
 };
 
 #endif //TP_SIMCITY_SIMCITY_H

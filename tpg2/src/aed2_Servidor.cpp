@@ -57,15 +57,15 @@ bool aed2_Servidor::huboConstruccion(Jugador j) const {
 }
 
 void aed2_Servidor::agregarCasa(Jugador j, Casilla c) {
-    _server.at(j).agregarCasa(c);
+    _server.agregarCasa(j, c);
 }
 
 void aed2_Servidor::agregarComercio(Jugador j, Casilla c) {
-    _server.at(j).agregarComercio(c);
+    _server.agregarComercio(j, c);
 }
 
 void aed2_Servidor::avanzarTurno(Jugador j) {
-    _server.at(j).avanzarTurno();
+    _server.avanzarTurno(j);
 }
 
 Nat aed2_Servidor::antiguedad(Jugador j) const {
